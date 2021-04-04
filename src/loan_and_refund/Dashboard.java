@@ -5,8 +5,12 @@
  */
 package loan_and_refund;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.print.PageFormat;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,18 +18,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author MJ
  */
+
 public class Dashboard extends javax.swing.JFrame {
     private static final String username = "root";
     private static final String password = "";
-    private static final String ConnString = "jdbc:mysql://localhost/loanscheme";
+    private static final String ConnString = "jdbc:mysql://localhost/loan_and_refund";
     private Connection conn = null;
-    private Statement st;
+    private Statement st = null;
     String[][] data1 = new String[200][19];
     
     /**
@@ -35,9 +41,6 @@ public class Dashboard extends javax.swing.JFrame {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
-        tab2_loan_request.hide();
-        tab4_manage_business.hide();
     }
 
     /**
@@ -60,6 +63,11 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tab5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        tab6 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        tab8 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         tab1_customer_reg = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -80,78 +88,74 @@ public class Dashboard extends javax.swing.JFrame {
         save = new javax.swing.JButton();
         update = new javax.swing.JButton();
         addNew = new javax.swing.JButton();
-        delete = new javax.swing.JButton();
         oldPhone = new javax.swing.JLabel();
-        id = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         beneficiarytbl = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
         tab2_loan_request = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        t2_lname = new javax.swing.JTextField();
-        t2_email = new javax.swing.JTextField();
-        t2_phone = new javax.swing.JTextField();
-        btype = new javax.swing.JComboBox<>();
-        payduration = new javax.swing.JComboBox<>();
-        amount = new javax.swing.JTextField();
-        loandate = new javax.swing.JTextField();
-        request = new javax.swing.JButton();
-        t2_addNew = new javax.swing.JButton();
-        iRate = new javax.swing.JLabel();
-        t2_accountno = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        t2_fname = new javax.swing.JTextField();
-        t2_id = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         phone_account = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         t2_search = new javax.swing.JButton();
         findData = new javax.swing.JLabel();
+        requestCustomerDetails = new javax.swing.JPanel();
+        t2_accountno = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        iRate = new javax.swing.JLabel();
+        t2_addNew = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
+        request = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        tblNote = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         loanrequesttbl = new javax.swing.JTable();
-        jLabel23 = new javax.swing.JLabel();
+        amount = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        payduration = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        btype = new javax.swing.JComboBox<>();
+        jLabel21 = new javax.swing.JLabel();
+        t2_fname = new javax.swing.JLabel();
+        t2_lname = new javax.swing.JLabel();
+        t2_phone = new javax.swing.JLabel();
+        loandate = new javax.swing.JLabel();
+        t2_email = new javax.swing.JLabel();
         tab3_loan_payment = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        balamount = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        loanamount = new javax.swing.JTextField();
-        jLabel29 = new javax.swing.JLabel();
-        payamount = new javax.swing.JTextField();
-        t3_phone = new javax.swing.JTextField();
-        dnum = new javax.swing.JTextField();
-        t3_lname = new javax.swing.JTextField();
-        loanduration = new javax.swing.JTextField();
-        t3_fname = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
-        t3_loandate = new javax.swing.JTextField();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        paymentdate = new javax.swing.JTextField();
-        t3_id = new javax.swing.JTextField();
-        jLabel34 = new javax.swing.JLabel();
-        pay = new javax.swing.JButton();
-        jLabel35 = new javax.swing.JLabel();
-        makeNewPayment = new javax.swing.JButton();
-        jLabel36 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
         jLabel30 = new javax.swing.JLabel();
         account_phone = new javax.swing.JTextField();
         t3_findData = new javax.swing.JLabel();
+        t3_search = new javax.swing.JButton();
+        paymentCustomerDetails = new javax.swing.JPanel();
+        pay = new javax.swing.JButton();
+        payamount = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
+        paymentdate = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         loanpaymenttbl = new javax.swing.JTable();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        resetPayment = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JSeparator();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        t3_fname = new javax.swing.JLabel();
+        t3_lname = new javax.swing.JLabel();
+        loanduration = new javax.swing.JLabel();
+        t3_loandate = new javax.swing.JLabel();
+        loanamount = new javax.swing.JLabel();
+        balamount = new javax.swing.JLabel();
+        t3_phone = new javax.swing.JLabel();
+        dnum = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
-        t3_search = new javax.swing.JButton();
         tab4_manage_business = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -162,8 +166,29 @@ public class Dashboard extends javax.swing.JFrame {
         t4_save = new javax.swing.JButton();
         t4_update = new javax.swing.JButton();
         t4_id = new javax.swing.JLabel();
+        tab5_report = new javax.swing.JPanel();
+        jLabel45 = new javax.swing.JLabel();
+        reportType = new javax.swing.JComboBox<>();
+        jLabel23 = new javax.swing.JLabel();
+        reportPanel = new javax.swing.JPanel();
+        beneficiaryListReport = new javax.swing.JScrollPane();
+        tblBeneficiaryListReport = new javax.swing.JTable();
+        reportNote = new javax.swing.JLabel();
+        businessListReport = new javax.swing.JScrollPane();
+        tblBusinessTypeListReport = new javax.swing.JTable();
+        defaultersListReport = new javax.swing.JScrollPane();
+        tblDefaultersTypeListReport = new javax.swing.JTable();
+        comlpetedPaymentListReport = new javax.swing.JScrollPane();
+        tblComlepetedPaymentListReport = new javax.swing.JTable();
+        printReport = new javax.swing.JButton();
+        tab8_home = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 102, 102));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -172,23 +197,24 @@ public class Dashboard extends javax.swing.JFrame {
 
         navigationBar.setBackground(new java.awt.Color(0, 102, 102));
 
-        tab1.setBackground(new java.awt.Color(255, 255, 255));
+        tab1.setBackground(new java.awt.Color(153, 153, 153));
+        tab1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab1MouseClicked(evt);
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Beneficiary Registration");
+        jLabel1.setText("Beneficiary");
 
         javax.swing.GroupLayout tab1Layout = new javax.swing.GroupLayout(tab1);
         tab1.setLayout(tab1Layout);
         tab1Layout.setHorizontalGroup(
             tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         tab1Layout.setVerticalGroup(
             tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,16 +224,18 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tab2.setBackground(new java.awt.Color(255, 255, 255));
+        tab2.setBackground(new java.awt.Color(153, 153, 153));
+        tab2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab2MouseClicked(evt);
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Loan Request");
+        jLabel2.setText("Request");
 
         javax.swing.GroupLayout tab2Layout = new javax.swing.GroupLayout(tab2);
         tab2.setLayout(tab2Layout);
@@ -223,16 +251,18 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tab3.setBackground(new java.awt.Color(255, 255, 255));
+        tab3.setBackground(new java.awt.Color(153, 153, 153));
+        tab3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab3MouseClicked(evt);
             }
         });
 
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Loan Payment");
+        jLabel3.setText("Payment");
 
         javax.swing.GroupLayout tab3Layout = new javax.swing.GroupLayout(tab3);
         tab3.setLayout(tab3Layout);
@@ -248,16 +278,18 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tab4.setBackground(new java.awt.Color(255, 255, 255));
+        tab4.setBackground(new java.awt.Color(153, 153, 153));
+        tab4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab4MouseClicked(evt);
             }
         });
 
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Manage Business");
+        jLabel4.setText("Business");
 
         javax.swing.GroupLayout tab4Layout = new javax.swing.GroupLayout(tab4);
         tab4.setLayout(tab4Layout);
@@ -273,16 +305,18 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tab5.setBackground(new java.awt.Color(255, 255, 255));
+        tab5.setBackground(new java.awt.Color(153, 153, 153));
+        tab5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab5MouseClicked(evt);
             }
         });
 
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Logout");
+        jLabel5.setText("Reports");
 
         javax.swing.GroupLayout tab5Layout = new javax.swing.GroupLayout(tab5);
         tab5.setLayout(tab5Layout);
@@ -298,38 +332,107 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tab6.setBackground(new java.awt.Color(153, 153, 153));
+        tab6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        tab6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab6MouseClicked(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Logout");
+
+        javax.swing.GroupLayout tab6Layout = new javax.swing.GroupLayout(tab6);
+        tab6.setLayout(tab6Layout);
+        tab6Layout.setHorizontalGroup(
+            tab6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        tab6Layout.setVerticalGroup(
+            tab6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+        );
+
+        tab8.setBackground(new java.awt.Color(228, 225, 225));
+        tab8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab8MouseClicked(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("Home");
+
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/successful-pay.png"))); // NOI18N
+
+        javax.swing.GroupLayout tab8Layout = new javax.swing.GroupLayout(tab8);
+        tab8.setLayout(tab8Layout);
+        tab8Layout.setHorizontalGroup(
+            tab8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        tab8Layout.setVerticalGroup(
+            tab8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout navigationBarLayout = new javax.swing.GroupLayout(navigationBar);
         navigationBar.setLayout(navigationBarLayout);
         navigationBarLayout.setHorizontalGroup(
             navigationBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navigationBarLayout.createSequentialGroup()
+            .addGroup(navigationBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(navigationBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tab2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tab3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tab4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tab5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(navigationBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tab1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tab2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tab3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tab4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tab5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tab8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(navigationBarLayout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(tab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         navigationBarLayout.setVerticalGroup(
             navigationBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navigationBarLayout.createSequentialGroup()
-                .addGap(176, 176, 176)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navigationBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tab8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tab1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tab2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tab6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tab1_customer_reg.setBackground(new java.awt.Color(232, 227, 247));
-        tab1_customer_reg.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(103, 71, 199)));
         tab1_customer_reg.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tab1_customer_regFocusGained(evt);
@@ -411,9 +514,9 @@ public class Dashboard extends javax.swing.JFrame {
                 saveActionPerformed(evt);
             }
         });
-        tab1_customer_reg.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(562, 271, 150, 31));
+        tab1_customer_reg.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 270, 150, 31));
 
-        update.setBackground(new java.awt.Color(0, 102, 102));
+        update.setBackground(new java.awt.Color(0, 153, 51));
         update.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         update.setForeground(new java.awt.Color(255, 255, 255));
         update.setText("UPDATE");
@@ -424,12 +527,12 @@ public class Dashboard extends javax.swing.JFrame {
                 updateActionPerformed(evt);
             }
         });
-        tab1_customer_reg.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 271, 150, 31));
+        tab1_customer_reg.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 270, 150, 31));
 
         addNew.setBackground(new java.awt.Color(0, 102, 102));
         addNew.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         addNew.setForeground(new java.awt.Color(255, 255, 255));
-        addNew.setText("NEW");
+        addNew.setText("RESET");
         addNew.setBorder(null);
         addNew.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addNew.addActionListener(new java.awt.event.ActionListener() {
@@ -437,31 +540,16 @@ public class Dashboard extends javax.swing.JFrame {
                 addNewActionPerformed(evt);
             }
         });
-        tab1_customer_reg.add(addNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 271, 150, 31));
-
-        delete.setBackground(new java.awt.Color(255, 0, 0));
-        delete.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        delete.setForeground(new java.awt.Color(255, 255, 255));
-        delete.setText("DELETE");
-        delete.setBorder(null);
-        delete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
-            }
-        });
-        tab1_customer_reg.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 271, 150, 31));
+        tab1_customer_reg.add(addNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 150, 31));
         tab1_customer_reg.add(oldPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(307, 132, -1, -1));
+        tab1_customer_reg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 258, 720, 7));
 
-        id.setEditable(false);
-        id.setBackground(new java.awt.Color(255, 255, 255));
-        id.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        tab1_customer_reg.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(487, 216, 33, 31));
-        tab1_customer_reg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 258, 701, 7));
-
-        beneficiarytbl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        beneficiarytbl.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         beneficiarytbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -482,133 +570,36 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(beneficiarytbl);
 
-        tab1_customer_reg.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 315, 701, 164));
+        tab1_customer_reg.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 720, 210));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("click on row to perform an operation ");
-        tab1_customer_reg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 485, 701, -1));
+        jLabel7.setText("click on a row to update record");
+        tab1_customer_reg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 720, -1));
 
-        jLabel26.setBackground(new java.awt.Color(103, 71, 199));
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setBackground(new java.awt.Color(0, 102, 102));
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(153, 255, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("Beneficary Reg");
+        jLabel26.setText("Beneficiary Registration");
         jLabel26.setOpaque(true);
-        tab1_customer_reg.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 40));
+        tab1_customer_reg.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 40));
+        tab1_customer_reg.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, -1, 20));
 
         tab2_loan_request.setBackground(new java.awt.Color(232, 227, 247));
-        tab2_loan_request.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(103, 71, 199)));
         tab2_loan_request.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 tab2_loan_requestComponentShown(evt);
             }
         });
 
-        jLabel8.setBackground(new java.awt.Color(103, 71, 199));
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setBackground(new java.awt.Color(0, 102, 102));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("LOAN REQUEST");
+        jLabel8.setText("Loan Request");
         jLabel8.setOpaque(true);
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel9.setText("Lastname:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel10.setText("Phone:");
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel11.setText("Business Type:");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel12.setText("Payment Duration:");
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel20.setText("Email:");
-
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel21.setText("Amount:");
-
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel22.setText("Loan Date:");
-
-        t2_lname.setEditable(false);
-        t2_lname.setBackground(new java.awt.Color(255, 255, 255));
-        t2_lname.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        t2_lname.setEnabled(false);
-        t2_lname.setOpaque(false);
-
-        t2_email.setEditable(false);
-        t2_email.setBackground(new java.awt.Color(255, 255, 255));
-        t2_email.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        t2_email.setEnabled(false);
-        t2_email.setOpaque(false);
-
-        t2_phone.setEditable(false);
-        t2_phone.setBackground(new java.awt.Color(255, 255, 255));
-        t2_phone.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        t2_phone.setEnabled(false);
-        t2_phone.setOpaque(false);
-
-        btype.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        btype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select" }));
-
-        payduration.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        payduration.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select", "Weekly (max of 26-weeks)", "Monthly (max of 6-months)" }));
-        payduration.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                paydurationItemStateChanged(evt);
-            }
-        });
-
-        amount.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        loandate.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        request.setBackground(new java.awt.Color(0, 102, 102));
-        request.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        request.setForeground(new java.awt.Color(255, 255, 255));
-        request.setText("REQUEST");
-        request.setBorder(null);
-        request.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        request.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                requestActionPerformed(evt);
-            }
-        });
-
-        t2_addNew.setBackground(new java.awt.Color(0, 102, 102));
-        t2_addNew.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        t2_addNew.setForeground(new java.awt.Color(255, 255, 255));
-        t2_addNew.setText("NEW");
-        t2_addNew.setBorder(null);
-        t2_addNew.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        t2_addNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t2_addNewActionPerformed(evt);
-            }
-        });
-
-        iRate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        iRate.setForeground(new java.awt.Color(200, 51, 0));
-        iRate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        t2_accountno.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        t2_accountno.setText("jLabel11");
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel24.setText("Forenames:");
-
-        t2_fname.setEditable(false);
-        t2_fname.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        t2_fname.setEnabled(false);
-        t2_fname.setOpaque(false);
-
-        t2_id.setEditable(false);
-        t2_id.setBackground(new java.awt.Color(255, 255, 255));
-        t2_id.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         phone_account.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
@@ -628,6 +619,59 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         findData.setText("dataFound to Loan");
+
+        requestCustomerDetails.setBackground(new java.awt.Color(232, 227, 247));
+        requestCustomerDetails.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        requestCustomerDetails.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        t2_accountno.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        requestCustomerDetails.add(t2_accountno, new org.netbeans.lib.awtextra.AbsoluteConstraints(549, 12, 93, -1));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel11.setText("Business Type:");
+        requestCustomerDetails.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 56, -1, -1));
+
+        iRate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        iRate.setForeground(new java.awt.Color(200, 51, 0));
+        iRate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        requestCustomerDetails.add(iRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 207, 132, 17));
+
+        t2_addNew.setBackground(new java.awt.Color(0, 102, 102));
+        t2_addNew.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        t2_addNew.setForeground(new java.awt.Color(255, 255, 255));
+        t2_addNew.setText("RESET");
+        t2_addNew.setBorder(null);
+        t2_addNew.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        t2_addNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t2_addNewActionPerformed(evt);
+            }
+        });
+        requestCustomerDetails.add(t2_addNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 150, 31));
+        requestCustomerDetails.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 127, 696, -1));
+
+        request.setBackground(new java.awt.Color(0, 102, 102));
+        request.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        request.setForeground(new java.awt.Color(255, 255, 255));
+        request.setText("REQUEST");
+        request.setBorder(null);
+        request.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        request.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestActionPerformed(evt);
+            }
+        });
+        requestCustomerDetails.add(request, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 150, 31));
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel24.setText("Forenames:");
+        requestCustomerDetails.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 12, -1, -1));
+
+        tblNote.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        tblNote.setForeground(new java.awt.Color(255, 0, 0));
+        tblNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tblNote.setText("Loan Request Transaction logs");
+        requestCustomerDetails.add(tblNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 700, 20));
 
         loanrequesttbl.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         loanrequesttbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -660,10 +704,54 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(loanrequesttbl);
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("loan request logs");
+        requestCustomerDetails.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 700, 190));
+
+        amount.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        requestCustomerDetails.add(amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 78, 200, 31));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel9.setText("Lastname:");
+        requestCustomerDetails.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 12, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel10.setText("Phone:");
+        requestCustomerDetails.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 12, -1, -1));
+
+        payduration.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        payduration.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select", "Weekly (max of 26-weeks)", "Monthly (max of 6-months)" }));
+        payduration.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                paydurationItemStateChanged(evt);
+            }
+        });
+        requestCustomerDetails.add(payduration, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 78, 200, 31));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel12.setText("Payment Duration:");
+        requestCustomerDetails.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 56, -1, -1));
+
+        btype.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        btype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select" }));
+        requestCustomerDetails.add(btype, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 78, 200, 31));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel21.setText("Amount:");
+        requestCustomerDetails.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 52, -1, -1));
+
+        t2_fname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        requestCustomerDetails.add(t2_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 34, 200, -1));
+
+        t2_lname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        requestCustomerDetails.add(t2_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 34, 200, -1));
+
+        t2_phone.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        requestCustomerDetails.add(t2_phone, new org.netbeans.lib.awtextra.AbsoluteConstraints(491, 34, 200, -1));
+
+        loandate.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        loandate.setText("date");
+
+        t2_email.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        t2_email.setText("email");
 
         javax.swing.GroupLayout tab2_loan_requestLayout = new javax.swing.GroupLayout(tab2_loan_request);
         tab2_loan_request.setLayout(tab2_loan_requestLayout);
@@ -671,147 +759,52 @@ public class Dashboard extends javax.swing.JFrame {
             tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(tab2_loan_requestLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2)
                     .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(11, 11, 11)
                         .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab2_loan_requestLayout.createSequentialGroup()
-                                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane3)
-                                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(t2_addNew, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(request, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(14, 14, 14))
                             .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                                .addComponent(phone_account, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(29, 29, 29)
-                                                .addComponent(t2_search, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(26, 26, 26)
-                                        .addComponent(findData, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel24)
-                                            .addComponent(t2_fname, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(39, 39, 39)
-                                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9)
-                                            .addComponent(t2_lname, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(42, 42, 42)
-                                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(t2_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                                .addComponent(jLabel10)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(t2_accountno, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(21, 21, 21))))
-                                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel20)
-                                                    .addComponent(t2_email, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(39, 39, 39)
-                                                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel11)
-                                                    .addComponent(btype, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel21))
-                                                .addGap(42, 42, 42)
-                                                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                                                        .addComponent(jLabel22)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(iRate, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addComponent(loandate, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(39, 39, 39)
-                                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(t2_id, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(payduration, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel12))))
-                                .addGap(0, 28, Short.MAX_VALUE)))))
+                                .addComponent(phone_account, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(t2_search, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(findData, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(loandate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t2_email, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(requestCustomerDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE))
                 .addContainerGap())
         );
         tab2_loan_requestLayout.setVerticalGroup(
             tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab2_loan_requestLayout.createSequentialGroup()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(findData))
+                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(loandate)
+                            .addComponent(t2_email)))
+                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(phone_account, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t2_search, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phone_account, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(t2_search, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(findData))
-                .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(t2_lname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                            .addComponent(jLabel24)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(t2_fname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(t2_accountno, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t2_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 5, 5)
-                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t2_email, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(payduration, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btype, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tab2_loan_requestLayout.createSequentialGroup()
-                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel21))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(loandate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(t2_id, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(iRate, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tab2_loan_requestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t2_addNew, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(request, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel23)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(requestCustomerDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tab3_loan_payment.setBackground(new java.awt.Color(232, 227, 247));
@@ -821,67 +814,33 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel27.setText("Loan Duration:");
-
-        balamount.setEditable(false);
-        balamount.setBackground(new java.awt.Color(255, 255, 255));
-        balamount.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel28.setText("Enter Amount:");
-
-        loanamount.setEditable(false);
-        loanamount.setBackground(new java.awt.Color(255, 255, 255));
-        loanamount.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel29.setText("Payment Date:");
-
-        payamount.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        t3_phone.setEditable(false);
-        t3_phone.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-
-        dnum.setEditable(false);
-        dnum.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-
-        t3_lname.setEditable(false);
-        t3_lname.setBackground(new java.awt.Color(255, 255, 255));
-        t3_lname.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        loanduration.setEditable(false);
-        loanduration.setBackground(new java.awt.Color(255, 255, 255));
-        loanduration.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        t3_fname.setEditable(false);
-        t3_fname.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        jLabel31.setBackground(new java.awt.Color(103, 71, 199));
-        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setBackground(new java.awt.Color(0, 102, 102));
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(153, 255, 255));
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setText("LOAN PAYMENT");
+        jLabel31.setText("Loan Payment");
         jLabel31.setOpaque(true);
 
-        t3_loandate.setEditable(false);
-        t3_loandate.setBackground(new java.awt.Color(255, 255, 255));
-        t3_loandate.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel30.setText("Beneficiary phone or account number");
 
-        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel32.setText("Forenames:");
+        account_phone.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
-        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel33.setText("Lastname:");
+        t3_search.setBackground(new java.awt.Color(0, 153, 51));
+        t3_search.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        t3_search.setForeground(new java.awt.Color(255, 255, 255));
+        t3_search.setText("SEARCH RECORD");
+        t3_search.setBorder(null);
+        t3_search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        t3_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t3_searchActionPerformed(evt);
+            }
+        });
 
-        paymentdate.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        t3_id.setEditable(false);
-        t3_id.setBackground(new java.awt.Color(255, 255, 255));
-        t3_id.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel34.setText("Loan Date:");
+        paymentCustomerDetails.setBackground(new java.awt.Color(232, 227, 247));
+        paymentCustomerDetails.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        paymentCustomerDetails.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pay.setBackground(new java.awt.Color(0, 102, 102));
         pay.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
@@ -894,31 +853,25 @@ public class Dashboard extends javax.swing.JFrame {
                 payActionPerformed(evt);
             }
         });
+        paymentCustomerDetails.add(pay, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 192, 170, 31));
 
-        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel35.setText("Actual Loan Amount:");
-
-        makeNewPayment.setBackground(new java.awt.Color(0, 102, 102));
-        makeNewPayment.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        makeNewPayment.setForeground(new java.awt.Color(255, 255, 255));
-        makeNewPayment.setText("ADD NEW PAYMENT");
-        makeNewPayment.setBorder(null);
-        makeNewPayment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        makeNewPayment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                makeNewPaymentActionPerformed(evt);
-            }
-        });
+        payamount.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        paymentCustomerDetails.add(payamount, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 141, 200, 31));
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel36.setText("Outstanding Balance:");
+        paymentCustomerDetails.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 62, -1, -1));
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel30.setText("Beneficiary phone or account number");
+        paymentdate.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        paymentCustomerDetails.add(paymentdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 119, -1, -1));
 
-        account_phone.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel33.setText("Lastname:");
+        paymentCustomerDetails.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 12, -1, -1));
 
-        t3_findData.setText("dataFound to Loan");
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel32.setText("Forenames:");
+        paymentCustomerDetails.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 12, -1, -1));
 
         loanpaymenttbl.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         loanpaymenttbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -943,107 +896,96 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(loanpaymenttbl);
 
-        jLabel37.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel37.setText("loan payment logs");
+        paymentCustomerDetails.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 254, 713, 170));
 
-        t3_search.setBackground(new java.awt.Color(0, 153, 51));
-        t3_search.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
-        t3_search.setForeground(new java.awt.Color(255, 255, 255));
-        t3_search.setText("SEARCH RECORD");
-        t3_search.setBorder(null);
-        t3_search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        t3_search.addActionListener(new java.awt.event.ActionListener() {
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel28.setText("Enter Amount:");
+        paymentCustomerDetails.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 119, -1, -1));
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel34.setText("Loan Date:");
+        paymentCustomerDetails.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 62, -1, -1));
+
+        resetPayment.setBackground(new java.awt.Color(0, 102, 102));
+        resetPayment.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        resetPayment.setForeground(new java.awt.Color(255, 255, 255));
+        resetPayment.setText("RESET");
+        resetPayment.setBorder(null);
+        resetPayment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resetPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t3_searchActionPerformed(evt);
+                resetPaymentActionPerformed(evt);
             }
         });
+        paymentCustomerDetails.add(resetPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 192, 170, 31));
+        paymentCustomerDetails.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 183, 713, 3));
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel27.setText("Loan Duration:");
+        paymentCustomerDetails.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 12, -1, -1));
+
+        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel35.setText("Actual Loan Amount:");
+        paymentCustomerDetails.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 62, -1, -1));
+
+        t3_fname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        paymentCustomerDetails.add(t3_fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 34, -1, -1));
+
+        t3_lname.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        paymentCustomerDetails.add(t3_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 34, -1, -1));
+
+        loanduration.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        paymentCustomerDetails.add(loanduration, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 34, -1, -1));
+
+        t3_loandate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        paymentCustomerDetails.add(t3_loandate, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 84, -1, -1));
+
+        loanamount.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        paymentCustomerDetails.add(loanamount, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 84, -1, -1));
+
+        balamount.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        paymentCustomerDetails.add(balamount, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 84, -1, -1));
+
+        t3_phone.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        paymentCustomerDetails.add(t3_phone, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, -1));
+
+        dnum.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        paymentCustomerDetails.add(dnum, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel37.setText("Loan Payment Transaction logs");
+        paymentCustomerDetails.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 234, 733, -1));
 
         javax.swing.GroupLayout tab3_loan_paymentLayout = new javax.swing.GroupLayout(tab3_loan_payment);
         tab3_loan_payment.setLayout(tab3_loan_paymentLayout);
         tab3_loan_paymentLayout.setHorizontalGroup(
             tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab3_loan_paymentLayout.createSequentialGroup()
-                .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
-                            .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(payamount, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(t3_loandate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loanamount, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel35)
-                            .addComponent(paymentdate, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29))
-                        .addGap(46, 46, 46)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(t3_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(balamount, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel36)
-                            .addComponent(t3_id, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel27)
-                            .addComponent(loanduration, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(24, 24, 24))
             .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator4)
                     .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4)
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel32)
-                                            .addComponent(t3_fname, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(42, 42, 42)
-                                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                                                .addComponent(jLabel33)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(dnum, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(19, 19, 19))
-                                            .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                                                .addComponent(t3_lname, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))))
-                                    .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                                                .addComponent(account_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(30, 30, 30)
-                                                .addComponent(t3_search, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(32, 32, 32)
-                                                .addComponent(t3_findData, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab3_loan_paymentLayout.createSequentialGroup()
-                        .addGap(0, 11, Short.MAX_VALUE)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                                .addComponent(makeNewPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(121, 121, 121)
-                                .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20))))
+                                .addComponent(account_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(t3_search, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(t3_findData, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(paymentCustomerDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         tab3_loan_paymentLayout.setVerticalGroup(
             tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1053,55 +995,8 @@ public class Dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab3_loan_paymentLayout.createSequentialGroup()
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel32)
-                            .addComponent(jLabel33))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(t3_fname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab3_loan_paymentLayout.createSequentialGroup()
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel27)
-                            .addComponent(dnum, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(loanduration, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t3_lname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(jLabel35)
-                    .addComponent(jLabel36))
-                .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(t3_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))
-                    .addGroup(tab3_loan_paymentLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t3_loandate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loanamount, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(balamount, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel28)
-                            .addComponent(jLabel29))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(payamount, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(paymentdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t3_id, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tab3_loan_paymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(makeNewPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pay, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel37))
+                .addComponent(paymentCustomerDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tab4_manage_business.setBackground(new java.awt.Color(232, 227, 247));
@@ -1110,18 +1005,21 @@ public class Dashboard extends javax.swing.JFrame {
                 tab4_manage_businessComponentShown(evt);
             }
         });
+        tab4_manage_business.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel38.setBackground(new java.awt.Color(103, 71, 199));
-        jLabel38.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel38.setBackground(new java.awt.Color(0, 102, 102));
+        jLabel38.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(153, 255, 255));
         jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel38.setText("BUSINESS TYPE REGISTRATION");
+        jLabel38.setText("Business Registration");
         jLabel38.setOpaque(true);
+        tab4_manage_business.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 40));
 
-        jLabel39.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
-        jLabel39.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(255, 0, 0));
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel39.setText("click on row to perform an operation ");
+        jLabel39.setText("click on a row to update record");
+        tab4_manage_business.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 410, -1));
 
         btypetbl.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btypetbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -1163,10 +1061,14 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(btypetbl);
 
+        tab4_manage_business.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 90, 420, 460));
+
         jLabel40.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel40.setText("Business Name:");
+        tab4_manage_business.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 31));
 
         bname.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        tab4_manage_business.add(bname, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 270, 31));
 
         t4_save.setBackground(new java.awt.Color(0, 102, 102));
         t4_save.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
@@ -1179,8 +1081,9 @@ public class Dashboard extends javax.swing.JFrame {
                 t4_saveActionPerformed(evt);
             }
         });
+        tab4_manage_business.add(t4_save, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 130, 31));
 
-        t4_update.setBackground(new java.awt.Color(0, 102, 102));
+        t4_update.setBackground(new java.awt.Color(0, 153, 51));
         t4_update.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         t4_update.setForeground(new java.awt.Color(255, 255, 255));
         t4_update.setText("UPDATE");
@@ -1191,53 +1094,228 @@ public class Dashboard extends javax.swing.JFrame {
                 t4_updateActionPerformed(evt);
             }
         });
+        tab4_manage_business.add(t4_update, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 130, 31));
+        tab4_manage_business.add(t4_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
-        t4_id.setText("id-here");
+        tab5_report.setBackground(new java.awt.Color(232, 227, 247));
 
-        javax.swing.GroupLayout tab4_manage_businessLayout = new javax.swing.GroupLayout(tab4_manage_business);
-        tab4_manage_business.setLayout(tab4_manage_businessLayout);
-        tab4_manage_businessLayout.setHorizontalGroup(
-            tab4_manage_businessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab4_manage_businessLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(tab4_manage_businessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tab4_manage_businessLayout.createSequentialGroup()
-                        .addComponent(jLabel40)
-                        .addGap(30, 30, 30)
-                        .addComponent(t4_id))
-                    .addGroup(tab4_manage_businessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(bname, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab4_manage_businessLayout.createSequentialGroup()
-                            .addComponent(t4_update, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(t4_save, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addGroup(tab4_manage_businessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
-        );
-        tab4_manage_businessLayout.setVerticalGroup(
-            tab4_manage_businessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tab4_manage_businessLayout.createSequentialGroup()
-                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addGroup(tab4_manage_businessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tab4_manage_businessLayout.createSequentialGroup()
-                        .addGroup(tab4_manage_businessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t4_id))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(tab4_manage_businessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t4_save, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t4_update, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel39)
+        jLabel45.setBackground(new java.awt.Color(0, 102, 102));
+        jLabel45.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(153, 255, 255));
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel45.setText("Manage Reports");
+        jLabel45.setOpaque(true);
+
+        reportType.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        reportType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select...", "Beneficiaries", "Businesses", "Completed Payment", "Defaulters" }));
+        reportType.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                reportTypeItemStateChanged(evt);
+            }
+        });
+        reportType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportTypeActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel23.setText("Select a report type and the system will auto generate it for you.");
+
+        reportPanel.setBackground(new java.awt.Color(232, 227, 247));
+        reportPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        reportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblBeneficiaryListReport.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        tblBeneficiaryListReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Full Name", "Email", "Phone", "Bank Name", "Account Number"
+            }
+        ));
+        tblBeneficiaryListReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBeneficiaryListReportMouseClicked(evt);
+            }
+        });
+        beneficiaryListReport.setViewportView(tblBeneficiaryListReport);
+
+        reportPanel.add(beneficiaryListReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 710, 370));
+
+        reportNote.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        reportNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        reportPanel.add(reportNote, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 570, 30));
+
+        tblBusinessTypeListReport.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        tblBusinessTypeListReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Business Name", "Created At"
+            }
+        ));
+        tblBusinessTypeListReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBusinessTypeListReportMouseClicked(evt);
+            }
+        });
+        businessListReport.setViewportView(tblBusinessTypeListReport);
+
+        reportPanel.add(businessListReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 710, 370));
+
+        tblDefaultersTypeListReport.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        tblDefaultersTypeListReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Full Name", "Phone", "Duration", "Amount", "Date"
+            }
+        ));
+        tblDefaultersTypeListReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDefaultersTypeListReportMouseClicked(evt);
+            }
+        });
+        defaultersListReport.setViewportView(tblDefaultersTypeListReport);
+
+        reportPanel.add(defaultersListReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 710, 370));
+
+        tblComlepetedPaymentListReport.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        tblComlepetedPaymentListReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Full Name", "Phone", "Duration", "Amount", "Date"
+            }
+        ));
+        tblComlepetedPaymentListReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblComlepetedPaymentListReportMouseClicked(evt);
+            }
+        });
+        comlpetedPaymentListReport.setViewportView(tblComlepetedPaymentListReport);
+
+        reportPanel.add(comlpetedPaymentListReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 710, 370));
+
+        printReport.setBackground(new java.awt.Color(0, 153, 51));
+        printReport.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        printReport.setForeground(new java.awt.Color(255, 255, 255));
+        printReport.setText("PRINT");
+        printReport.setBorder(null);
+        printReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printReportActionPerformed(evt);
+            }
+        });
+        reportPanel.add(printReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 7, 100, 30));
+
+        javax.swing.GroupLayout tab5_reportLayout = new javax.swing.GroupLayout(tab5_report);
+        tab5_report.setLayout(tab5_reportLayout);
+        tab5_reportLayout.setHorizontalGroup(
+            tab5_reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(tab5_reportLayout.createSequentialGroup()
+                .addGap(192, 192, 192)
+                .addGroup(tab5_reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addComponent(reportType, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab5_reportLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(reportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        tab5_reportLayout.setVerticalGroup(
+            tab5_reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab5_reportLayout.createSequentialGroup()
+                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reportType, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(reportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tab8_home.setBackground(new java.awt.Color(232, 227, 247));
+        tab8_home.setForeground(new java.awt.Color(153, 255, 255));
+
+        jLabel41.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(0, 102, 51));
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setText("<html>Welcome to an online <b>Application for Loan and Refund</b> </html>");
+
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/money-bag-2526791-2113358.png"))); // NOI18N
+
+        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(0, 102, 51));
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel43.setText("<html><b>Supervised by:</b> Mr.");
+
+        jLabel44.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(0, 102, 51));
+        jLabel44.setText("<html><b>Developed by:</b> Ola Solade");
+
+        javax.swing.GroupLayout tab8_homeLayout = new javax.swing.GroupLayout(tab8_home);
+        tab8_home.setLayout(tab8_homeLayout);
+        tab8_homeLayout.setHorizontalGroup(
+            tab8_homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel41)
+            .addGroup(tab8_homeLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(390, 390, 390)
+                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 23, Short.MAX_VALUE))
+        );
+        tab8_homeLayout.setVerticalGroup(
+            tab8_homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab8_homeLayout.createSequentialGroup()
+                .addGap(171, 171, 171)
+                .addComponent(jLabel42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addGroup(tab8_homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1247,68 +1325,83 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(navigationBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tab1_customer_reg, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE))
+                .addComponent(tab1_customer_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 212, Short.MAX_VALUE)
+                    .addGap(0, 219, Short.MAX_VALUE)
                     .addComponent(tab3_loan_payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 213, Short.MAX_VALUE)
-                    .addComponent(tab4_manage_business, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 217, Short.MAX_VALUE)
+                    .addComponent(tab4_manage_business, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 214, Short.MAX_VALUE)
+                    .addGap(0, 215, Short.MAX_VALUE)
                     .addComponent(tab2_loan_request, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 218, Short.MAX_VALUE)
+                    .addComponent(tab8_home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 216, Short.MAX_VALUE)
+                    .addComponent(tab5_report, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navigationBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tab1_customer_reg, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(tab1_customer_reg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(navigationBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 1, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tab3_loan_payment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(tab3_loan_payment, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tab4_manage_business, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(tab4_manage_business, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 1, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tab2_loan_request, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(tab2_loan_request, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tab8_home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tab5_report, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setBGforBTN() {
+        tab1.setBackground(new Color (153,153,153));    tab1_customer_reg.setVisible(false);
+        tab2.setBackground(new Color (153,153,153));    tab2_loan_request.setVisible(false);
+        tab3.setBackground(new Color (153,153,153));    tab3_loan_payment.setVisible(false);
+        tab4.setBackground(new Color (153,153,153));    tab4_manage_business.setVisible(false);
+        tab5.setBackground(new Color (153,153,153));    tab5_report.setVisible(false);
+        tab8.setBackground(new Color (153,153,153));    tab8_home.setVisible(false);
+    }
+    
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-        tab1_customer_reg.setVisible(true);
-        tab2_loan_request.setVisible(false);
-        tab3_loan_payment.setVisible(false);
-        tab4_manage_business.setVisible(false);
+        setBGforBTN(); tab1_customer_reg.setVisible(true); tab1.setBackground(Color.white);
     }//GEN-LAST:event_tab1MouseClicked
 
     private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
-        tab1_customer_reg.setVisible(false);
-        tab2_loan_request.setVisible(true);
-        tab3_loan_payment.setVisible(false);
-        tab4_manage_business.setVisible(false);
+        setBGforBTN(); tab2_loan_request.setVisible(true); tab2.setBackground(Color.white);
     }//GEN-LAST:event_tab2MouseClicked
 
     private void tab3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3MouseClicked
-        tab1_customer_reg.setVisible(false);
-        tab2_loan_request.setVisible(false);
-        tab3_loan_payment.setVisible(true);
-        tab4_manage_business.setVisible(false);
+        setBGforBTN(); tab3_loan_payment.setVisible(true); tab3.setBackground(Color.white);
     }//GEN-LAST:event_tab3MouseClicked
 
     private void tab4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab4MouseClicked
-        tab1_customer_reg.setVisible(false);
-        tab2_loan_request.setVisible(false);
-        tab3_loan_payment.setVisible(false);
-        tab4_manage_business.setVisible(true);
+        setBGforBTN(); tab4_manage_business.setVisible(true); tab4.setBackground(Color.white);
     }//GEN-LAST:event_tab4MouseClicked
 
     private void tab5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab5MouseClicked
-        tab1_customer_reg.setVisible(false);
-        tab3_loan_payment.setVisible(false);
-        tab4_manage_business.setVisible(false);
-        tab4_Panel.setVisible(false);
+        setBGforBTN(); tab5_report.setVisible(true); tab5.setBackground(Color.white);
     }//GEN-LAST:event_tab5MouseClicked
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
@@ -1346,7 +1439,6 @@ public class Dashboard extends javax.swing.JFrame {
         }
 
         if("".equals(errorMsg)){
-
             if(beneficiaryExist()){
                 JOptionPane.showMessageDialog(this, "Beneficiary exit with either phone, email or account number !", "Status", JOptionPane.ERROR_MESSAGE);
                 return ;
@@ -1354,21 +1446,12 @@ public class Dashboard extends javax.swing.JFrame {
             try{
                 connect();
                 String sql = "INSERT INTO beneficiaryreg (fname,lname,fullname,gender,email,phone,bank,accountno,address)VALUES('"
-                + fname.getText()+ "'," + "'"
-                + lname.getText() + "'," + "'"
-                + lname.getText() + " "+fname.getText()+"',"+"'"
-                + gender.getSelectedItem()  + "'," + "'"
-                + email.getText().toLowerCase()+ "'," + "'"
-                + phone.getText() + "'," + "'"
-                + bank.getSelectedItem() + "'," + "'"
-                + accountno.getText() + "'," + "'"
-                + address.getText()+ "')" ;
-
+                + fname.getText()+ "'," + "'" + lname.getText() + "'," + "'"
+                + lname.getText() + " "+fname.getText()+"',"+"'" + gender.getSelectedItem()  + "'," + "'"
+                + email.getText().toLowerCase()+ "'," + "'" + phone.getText() + "'," + "'"
+                + bank.getSelectedItem() + "'," + "'" + accountno.getText() + "'," + "'" + address.getText()+ "')" ;
                 st.execute(sql);
-                //JOptionPane.showMessageDialog(this, "Processed successful!", "Status", JOptionPane.INFORMATION_MESSAGE);
-                id.setText(getTid());
-                onSave();
-                displayBeneficiary();
+               displayBeneficiary();    save.setEnabled(false);    update.hide();
             }
             catch(Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.toString());
@@ -1379,9 +1462,8 @@ public class Dashboard extends javax.swing.JFrame {
                 connect();
                 String sql = "INSERT INTO deptcheck(phone,accountno,balamount,status)VALUES('" + phone.getText()+ "'," 
                         + "'" + accountno.getText()+ "'," + "'" + cAmt + "'," + "'" + "0" + "')" ;
-                st.execute(sql);
+                st.execute(sql);    displayBeneficiary();
                 JOptionPane.showMessageDialog(this, "Processed successful!", "Status", JOptionPane.INFORMATION_MESSAGE);
-                displayBeneficiary();
             }
             catch(Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.toString());
@@ -1389,7 +1471,6 @@ public class Dashboard extends javax.swing.JFrame {
         }
         else {
             JOptionPane.showMessageDialog(this, errorMsg,"Status",JOptionPane.ERROR_MESSAGE);
-            return;
         }
     }//GEN-LAST:event_saveActionPerformed
 
@@ -1398,35 +1479,26 @@ public class Dashboard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Select record to modify!", "Status", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to update beneficiary record?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
+        int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to update beneficiary record?", "Status", JOptionPane.YES_NO_OPTION);
         if (n == JOptionPane.YES_OPTION) {
-            double amt = 0 ;
-            String cAmt = String.format("%.2f", amt);
             try {
                 connect();
-                String sql = "UPDATE deptcheck SET phone='" + phone.getText() + "' WHERE phone='" + oldPhone.getText() + "'";
+                String sql = "UPDATE deptcheck SET phone='" + phone.getText() + "',accountno='" +accountno.getText()
+                + "' WHERE phone='" + oldPhone.getText() + "'";
                 st.execute(sql);
-                displayBeneficiary();
             }
             catch(Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.toString());
             }
             try {
                 connect();
-                String sql = "UPDATE beneficiaryreg SET fname='" + fname.getText()
-                + "',lname='" +lname.getText()
-                + "',fullname='" +lname.getText()+" "+fname.getText()
-                + "',gender='" + gender.getSelectedItem()
-                + "',email='" + email.getText().toLowerCase()
-                + "',phone='" +phone.getText()
-                + "',bank='" + bank.getSelectedItem()
-                + "',accountno='" + accountno.getText()
-                + "',address='" +address.getText()
-                + "' WHERE phone='" + oldPhone.getText() + "'";
-                st.executeUpdate(sql);
+                String sql = "UPDATE beneficiaryreg SET fname='" + fname.getText() + "',lname='" +lname.getText()
+                + "',fullname='" +lname.getText()+" "+fname.getText() + "',gender='" + gender.getSelectedItem()
+                + "',email='" + email.getText().toLowerCase() + "',phone='" +phone.getText()
+                + "',bank='" + bank.getSelectedItem() + "',accountno='" + accountno.getText()
+                + "',address='" +address.getText() + "' WHERE phone='" + oldPhone.getText() + "'";
+                st.executeUpdate(sql);  displayBeneficiary();
                 JOptionPane.showMessageDialog(this, "Modified successful!", "Status", JOptionPane.INFORMATION_MESSAGE);
-                displayBeneficiary();
-                id.setText(getTid());
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Modification error!", "Status", JOptionPane.ERROR_MESSAGE);
@@ -1437,43 +1509,15 @@ public class Dashboard extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Operation cancelled!", "Status", JOptionPane.INFORMATION_MESSAGE);
         }
-        onaddNew();
-        id.setText(getTid());
-        displayBeneficiary();
+        displayBeneficiary();   update.setEnabled(false);
+        save.hide();
+        
     }//GEN-LAST:event_updateActionPerformed
 
     private void addNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewActionPerformed
         onaddNew();
-        id.setText(getTid());
         displayBeneficiary();
     }//GEN-LAST:event_addNewActionPerformed
-
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        if ("".equals(phone.getText())) {
-            JOptionPane.showMessageDialog(this, "Select row to delete!", "Status", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete beneficiary record?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
-        if (n == JOptionPane.YES_OPTION) {
-            try {
-                String query = "DELETE from beneficiaryreg WHERE phone ='" + phone.getText() + "'";
-                connect();
-                st.executeUpdate(query);
-                JOptionPane.showMessageDialog(this, "Deletion successful!", "Status", JOptionPane.INFORMATION_MESSAGE);
-                displayBeneficiary();
-                id.setText(getTid());
-            }
-            catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Deletion error!", "Status", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        else if (n == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(this, "Operation cancelled!", " Status", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Operation cancelled!","Status", JOptionPane.INFORMATION_MESSAGE);
-        }
-        onaddNew();
-    }//GEN-LAST:event_deleteActionPerformed
 
     private void beneficiarytblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beneficiarytblMouseClicked
         try {
@@ -1484,29 +1528,20 @@ public class Dashboard extends javax.swing.JFrame {
             st.executeQuery(sql);
             ResultSet rs = st.getResultSet();
             if (rs.next()) {
-                fname.setText(rs.getString("fname"));
-                //bID.setText();
-                lname.setText(rs.getString("lname"));
-                gender.setSelectedItem(rs.getString("gender"));
-                email.setText(rs.getString("email"));
-                phone.setText(rs.getString("phone"));
-                oldPhone.setText(rs.getString("phone"));
-                phone.setEditable(false);
-                bank.setSelectedItem(rs.getString("bank"));
-                accountno.setText(rs.getString("accountno"));
-                address.setText(rs.getString("address"));
+                fname.setText(rs.getString("fname")); lname.setText(rs.getString("lname")); gender.setSelectedItem(rs.getString("gender"));
+                email.setText(rs.getString("email")); phone.setText(rs.getString("phone")); oldPhone.hide();
+                oldPhone.setText(rs.getString("phone")); bank.setSelectedItem(rs.getString("bank"));
+                accountno.setText(rs.getString("accountno")); address.setText(rs.getString("address"));
             }
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        update.setEnabled(true);
-        delete.setEnabled(true);
-        save.setEnabled(false);
+        update.setEnabled(true);    update.show();     save.hide();
     }//GEN-LAST:event_beneficiarytblMouseClicked
-
+    
     private void loanrequesttblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loanrequesttblMouseClicked
-        try {
+       /* try {
             connect();
             int row = loanrequesttbl.getSelectedRow();
             String table_click = loanrequesttbl.getModel().getValueAt(row, 1).toString();
@@ -1528,21 +1563,16 @@ public class Dashboard extends javax.swing.JFrame {
         catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        fname.setEditable(false);
-        // mname.setEditable(false);
-        lname.setEditable(false);
-        email.setEditable(false);
-        phone.setEditable(false);
-        amount.setEditable(false);
-        loandate.setEditable(false);
+        btype.setEnabled(false);
         payduration.setEnabled(false);
-        dateGenerate();
-        update.setEnabled(true);
-        delete.setEnabled(false);
-        request.setEnabled(false);
+        amount.setEditable(false);
+        
+        t2_addNew.setEnabled(true); t2_addNew.show();
+        request.hide(); */
     }//GEN-LAST:event_loanrequesttblMouseClicked
-
+    
     private void t2_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t2_searchActionPerformed
+        dateGenerate();
         String errorMsg = "";
         if ("".equals(phone_account.getText())) {
             errorMsg += "Phone or account number is required \n";
@@ -1556,6 +1586,8 @@ public class Dashboard extends javax.swing.JFrame {
                 ResultSet rs = st.getResultSet();
                 if (rs.next()) {
                     findData.setText(rs.getString("phone"));
+                    //tblNote.setText("Loan Logs for "+rs.getString("fullname")+" with account number "+rs.getString("accountno"));
+                    displayRequestLogs();
                 }
                 else {
                     JOptionPane.showMessageDialog(this, "Not a valid phone or account number!", "Status", JOptionPane.ERROR_MESSAGE);
@@ -1578,16 +1610,20 @@ public class Dashboard extends javax.swing.JFrame {
                     if (a == 0){ // No active loan => Eligible
                         findData.setText(rs.getString("phone"));
                         loadLoanRequestLogs(findData.getText());
+                        request.show();
+                        //requestCustomerDetails.setVisible(true);
                     }
                     else if (a == 1) { //active loan => Not eligible
-                        JOptionPane.showMessageDialog(this, "Active loan found! You're not eligible.", "Status", JOptionPane.INFORMATION_MESSAGE);
-                        findData.setText(null);
-                        return;
-                    }
-                    else if (a == 2) { //Active loan payment completed => Eligible for another
-                        JOptionPane.showMessageDialog(null,"Your loan payment is completed! You're eligible for another loan.");
+                        JOptionPane.showMessageDialog(this, "Active loan found! You're NOT eligible.", "Status", JOptionPane.ERROR_MESSAGE);
                         findData.setText(rs.getString("phone"));
                         loadLoanRequestLogs(findData.getText());
+                        request.hide();
+                    }
+                    else if (a == 2) { //Active loan payment completed => Eligible for another
+                        JOptionPane.showMessageDialog(null,"Your loan payment is completed! You're eligible for another loan.", "Status", JOptionPane.INFORMATION_MESSAGE);
+                        findData.setText(rs.getString("phone"));
+                        loadLoanRequestLogs(findData.getText());
+                        request.show();
                     }
                 }
             }
@@ -1603,26 +1639,17 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void t2_addNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t2_addNewActionPerformed
         onAddNewRequest();
-        id.setText(getTid());
+        request.hide(); phone_account.setText("");
         displayRequestLogs();
+        dateGenerate();
     }//GEN-LAST:event_t2_addNewActionPerformed
 
     private void requestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestActionPerformed
+        dateGenerate();
         String errorMsg = "";
-        if ("".equals(t2_fname.getText())) {
-            errorMsg += " Forenames is required \n";
-        }
-
-        if ("".equals(t2_lname.getText())) {
-            errorMsg += " Last Name is required \n";
-        }
-
-        if ("".equals(t2_email.getText())) {
-            errorMsg += " Email is required \n";
-        }
-
         if ("".equals(t2_phone.getText())) {
-            errorMsg += " Phone is required \n";
+            errorMsg += "You need to search using phone or account number first!\n";
+            return;
         }
 
         if (btype.getSelectedIndex()== 0) {
@@ -1637,10 +1664,6 @@ public class Dashboard extends javax.swing.JFrame {
             errorMsg += " Amount is required \n";
         }
 
-        if ("".equals(loandate.getText())) {
-            errorMsg += " Loan Date is required \n";
-        }
-
         if("".equals(errorMsg)){
             // proceed to search for active loan
             try {
@@ -1651,13 +1674,9 @@ public class Dashboard extends javax.swing.JFrame {
                 ResultSet rs = st.getResultSet();
                 while(rs.next()) {
                     int a = Integer.parseInt(rs.getString("status"));
-                    if (a == 1) {
-                        JOptionPane.showMessageDialog(null,"Active loan is found");
-                        request.setEnabled(false);
-                        update.setEnabled(false);
-                        addNew.setEnabled(false);
-                        delete.setEnabled(false);
-                        return;
+                    if (a == 1) { //1 => ActiveLoan
+                        JOptionPane.showMessageDialog(null,"Active loan is found! You're NOT eligible.","Status", JOptionPane.ERROR_MESSAGE);
+                        request.hide();     t2_addNew.show();
                     }
                 }
             }
@@ -1669,49 +1688,35 @@ public class Dashboard extends javax.swing.JFrame {
             double amt = Double.parseDouble(amount.getText());
             String cAmt = String.format("%.2f", amt);
             try {
-                connect();
+                connect(); //TODO: insert date
                 String sql = "INSERT INTO loanrequest(fname,lname,fullname,email,phone,btype,payduration,amount,loandate,status)VALUES('"
-                + t2_fname.getText()+ "'," + "'"
-                + lname.getText() + "'," + "'"
-                + t2_lname.getText() + " " +t2_fname.getText()+ "'," + "'"
-                + t2_email.getText() + "'," + "'"
-                + t2_phone.getText() + "'," + "'"
-                + btype.getSelectedItem() + "'," + "'"
-                + payduration.getSelectedItem() + "'," + "'"
-                + cAmt + "'," + "'"
-                + loandate.getText() + "'," + "'"
-                + "Success" + "')" ;
+                + t2_fname.getText()+ "'," + "'" + t2_lname.getText() + "'," + "'" + t2_lname.getText() + " " 
+                + t2_fname.getText()+ "'," + "'" + t2_email.getText() + "'," + "'" + t2_phone.getText() + "'," + "'"
+                + btype.getSelectedItem() + "'," + "'" + payduration.getSelectedItem() + "'," + "'" + cAmt + "'," 
+                + "'" + loandate.getText() + "'," + "'" + "Success" + "')" ;
                 st.execute(sql);
-                // JOptionPane.showMessageDialog(this, "Loan request is succefully");
-                //onRequest();
-              //  display();
+                displayRequestLogs();
             }
             catch(Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.toString());
+                JOptionPane.showMessageDialog(this, ex.toString() + "Loan Request Insertion Error");
             }
             try {
                 connect();
                 String sql = "UPDATE deptcheck SET fullname='" +t2_lname.getText()+" "+t2_fname.getText()
-                + "',payduration='" +payduration.getSelectedItem()
-                + "',loanamount='" +amount.getText()
-                + "',loandate='" + loandate.getText()
-                + "',status='" + "1"
-                + "',balamount='" + cAmt
+                + "',payduration='" +payduration.getSelectedItem() + "',loanamount='" +amount.getText()
+                + "',loandate='" + loandate.getText() + "',status='" + "1" + "',balamount='" + cAmt
                 + "' WHERE phone='" + t2_phone.getText() + "'";
                 st.execute(sql);
-                JOptionPane.showMessageDialog(this, "Loan request is succefully");
-                t2_id.setText(getTid());
-                //onRequest();
-                //display();
+                JOptionPane.showMessageDialog(this, "Loan request process successful!", "Status", JOptionPane.INFORMATION_MESSAGE);
+                request.hide(); displayRequestLogs();
             }
             catch(Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.toString());
             }
         }
         else {
-            JOptionPane.showMessageDialog(this, errorMsg,"Error Message: Required Field(s)",JOptionPane.ERROR_MESSAGE);
-            return;
-        }        // TODO add your handling code here:
+            JOptionPane.showMessageDialog(this, errorMsg,"Status",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_requestActionPerformed
 
     private void paydurationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_paydurationItemStateChanged
@@ -1732,161 +1737,84 @@ public class Dashboard extends javax.swing.JFrame {
         if ("".equals(t3_fname.getText())) {
             errorMsg += "Forenames is required \n";
         }
-
-        if ("".equals(t3_lname.getText())) {
-            errorMsg += "Last Name is required \n";
-        }
-
-        if ("".equals(t3_phone.getText())) {
-            errorMsg += "Phone is required \n";
-        }
-
-        if ("".equals(loanduration.getText())) {
-            errorMsg += "Loan duration is required \n";
-        }
-
-        if ("".equals(loandate.getText())) {
-            errorMsg += "Loan date is required \n";
-        }
-
-        if ("".equals(loanamount.getText())) {
-            errorMsg += "Actual loan amount is required \n";
-        }
-
-        if ("".equals(balamount.getText())) {
-            errorMsg += "Outstanding balance is required \n";
-        }
-
+        
         if ("".equals(payamount.getText())) {
-            errorMsg += "Enter amount is required \n";
+            errorMsg += "Amount is required \n";
         }
-
-        if ("".equals(paymentdate.getText())) {
-            errorMsg += "Payable amount is required \n";
-        }
-
-        if ("".equals(paymentdate.getText())) {
-            errorMsg += "Payment date is required \n";
-        }
-        /**
-        double checktxtStatus = Double.parseDouble(balamount.getText());
-        if (checktxtStatus <= 0) {
-            checkStatus.setText("Complete");
-            return;
-        }
-        else if (checktxtStatus > 0) {
-            checkStatus.setText("Payment Success");
-        }
-        if ("".equals(checkStatus.getText())) {
-            //JOptionPane.showMessageDialog(null,"");
-            return;
-        }
-        **/
+        
         if("".equals(errorMsg)){
-
-            double payamt = Double.parseDouble(payamount.getText());
-            String amtamt = String.format("%.2f", payamt);
-            double paybal = Double.parseDouble(balamount.getText());
-            String amtbal = String.format("%.2f", paybal);
-            double payloan = Double.parseDouble(loanamount.getText());
-            double payAllCal = paybal - payamt;
+            
+            double expectedBal = 0, recommendPayment = 0, minPayment = 0, payamt, paybal, payloan;
+            payamt = Double.parseDouble(payamount.getText());
+            paybal = Double.parseDouble(balamount.getText());
+            payloan = Double.parseDouble(loanamount.getText());
+            //String amtbal = String.format("%.2f", paybal);
+            expectedBal = paybal - payamt; // expBal is lessthan MinimumPayment
+            
             int duration = Integer.parseInt(dnum.getText());
             if (duration == 1 ) {
-                double minpay, weeks = 26;
-                minpay = payloan / weeks;
-                String minPay = String.format("%.2f", minpay);
-                //amount enter is lessthan min pay
-                if (payamt < minpay) {
-                    JOptionPane.showMessageDialog(this, "Emount entered can not be lessthan N"+minPay);
-                    return;
-                }
-                //amount enter is greaterthan outstanding bal
-                else if (payamt > paybal) {
-                    JOptionPane.showMessageDialog(this, "Emount entered cannot greater than N"+amtbal);
-                    return;
-                }//end weekly cal min and max
-
-                else if (payAllCal < 0) {
-                    JOptionPane.showMessageDialog(this, "You can ONLY pay N"+amtbal);
-                    return;
-                }//end you have to pay weekly bal
+                minPayment = payloan / 26; //26weeks
+                recommendPayment = paybal - minPayment - 1; //suggestPayment
+            } else if (duration == 2 ) {
+                minPayment = payloan / 6; //6months
+                recommendPayment = paybal - minPayment - 1; //suggestPayment
             }
-            else if (duration == 2 ) {
-                double minpay, months = 6;
-                minpay = payloan / months;
-                String minPay = String.format("%.2f", minpay);
-
-                //amount enter is lessthan min pay
-                if (payamt < minpay) {
-                    JOptionPane.showMessageDialog(this, "Emount entered can not be lessthan N"+minPay);
-                    return;
-                }
-                //amount enter is greaterthan outstanding bal
-                else if (payamt > paybal) {
-                    JOptionPane.showMessageDialog(this, "Emount entered cannot greater than N"+amtbal);
-                    return;
-                }
-                else if (payAllCal < minpay) {
-                    JOptionPane.showMessageDialog(this, "You can ONLY pay N"+amtbal);
-                    return;
-                }//end you have to pay weekly bal
-
-            }//end monthly cal min and max
-
-            if ("".equals(payamount.getText())) {
-                errorMsg += "Enter amount is required \n";
+            //amountPaying is lessthan minPayment
+            if (payamt < minPayment) {
+                JOptionPane.showMessageDialog(this, "Your minimum payment allowed is: N"+(String.format("%.2f",minPayment)),"Status",1);
+                return;
             }
+            //amountPaying is greaterthan outstandingBal
+            else if (payamt > paybal) {
+                JOptionPane.showMessageDialog(this, "Your maximum payment allowed is: N"+(String.format("%.2f",paybal)),"Status",1);
+                return;
+            }
+            // expectedBal is greaterthan N0 => recommend
+            else if (expectedBal > 0 ) { //TODO: check this as issue can rise when min == max
+                JOptionPane.showMessageDialog(this, "You can ONLY pay up to N"+(String.format("%.2f",paybal))+" at the moment.","Status",1);
+                return;
+            } else {
+                System.out.println("Enable PaymentGateWay => Amount is: N"+payamt);
+            }
+            
             try {
                 connect();
-                String sql = "INSERT INTO loanpayment "
-                + "(fname,lname,fullname,phone,loanduration,loandate,loanamount,balamount,payamount,paymentdate,status)VALUES('"
-                + t3_fname.getText()+ "'," + "'"
-                + t3_lname.getText() + "'," + "'"
-                + t3_lname.getText() + " " +t3_fname.getText() + "'," + "'"
-                + t3_phone.getText() + "'," + "'"
-                + loanduration.getText() + "'," + "'"
-                + loandate.getText()+ "'," + "'"
-                + loanamount.getText() + "'," + "'"
-                + balamount.getText() + "'," + "'"
-                + payamount.getText() + "'," + "'"
-                + paymentdate.getText() + "'," + "'"
-                + "Success"+"')" ;
+                String sql = "INSERT INTO loanpayment " 
+                + "(fname,lname,fullname,phone,loanduration,loandate,loanamount,balamount,payamount,paymentdate,status)"
+                + "VALUES('" + t3_fname.getText()+ "'," + "'" + t3_lname.getText() + "'," + "'"
+                + t3_lname.getText() + " " +t3_fname.getText() + "'," + "'" + t3_phone.getText() + "'," + "'"
+                + loanduration.getText() + "'," + "'" + loandate.getText()+ "'," + "'"
+                + loanamount.getText() + "'," + "'" + balamount.getText() + "'," + "'"
+                + payamount.getText() + "'," + "'" + paymentdate.getText() + "'," + "'" + "Success"+"')" ;
                 st.execute(sql);
-                JOptionPane.showMessageDialog(this, "Payment succefully");
-                t3_id.setText(getTid());
+                //JOptionPane.showMessageDialog(this, "Payment process successful!","Status", JOptionPane.INFORMATION_MESSAGE);
+                //t3_id.setText(getTid());
                 displayPaymentLogs();
             }
             catch(Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.toString());
+                JOptionPane.showMessageDialog(this, ex.toString() + "Loan Payment failure","Status",0);
             }
-            double oamount, pamount, left;
-            oamount = Double.parseDouble(balamount.getText());
-            pamount = Double.parseDouble(payamount.getText());
-            left = oamount - pamount;
+            double left = paybal - payamt;
             String leftB = String.format("%.2f", left);
-            // JOptionPane.showMessageDialog(null, leftB);
+            //JOptionPane.showMessageDialog(null, leftB);
             try {
                 connect();
-                String sql = "UPDATE deptcheck SET balamount='" + leftB
-                + "' WHERE phone='" + t3_phone.getText() + "'";
+                String sql = "UPDATE deptcheck SET balamount='" + leftB + "' WHERE phone='" + t3_phone.getText() + "'";
                 st.execute(sql);
-                JOptionPane.showMessageDialog(this, "Your outstanding balance has been updated");
-                pay.setEnabled(false);
-                addNew.setEnabled(true);
+                pay.hide(); resetPayment.show();
                 displayPaymentLogs();
+                JOptionPane.showMessageDialog(this, "Payment process successful and your outstanding "
+                        + "\n balance is updated accordingly!","Status",JOptionPane.INFORMATION_MESSAGE);
                 //payComplete();
                 double leftBd = Double.parseDouble(leftB);
                 if (leftBd == 0.00) {
                     try {
                         connect();
-                        String sql1 = "UPDATE deptcheck SET status='" + "2"
-                        + "' WHERE phone='" + t3_phone.getText() + "'";
+                        String sql1 = "UPDATE deptcheck SET status='" + "2" + "' WHERE phone='" + t3_phone.getText() + "'";
                         st.execute(sql1);
-                        JOptionPane.showMessageDialog(this, "Your loan payment is complete, you can request for another loan");
-                        pay.setEnabled(false);
-                        payamount.setText(null);
-                        payamount.setEditable(false);
-                        addNew.setEnabled(false);
+                        JOptionPane.showMessageDialog(this, "Hurray! You just completed your payment and \n"
+                                                           + "you're eligible for another loan.","Status",1);
+                        pay.hide();
                     }
                     catch(Exception ex) {
                         JOptionPane.showMessageDialog(this, ex.toString());
@@ -1898,21 +1826,19 @@ public class Dashboard extends javax.swing.JFrame {
             }
         }
         else {
-            JOptionPane.showMessageDialog(this, errorMsg,"Error Message: Required Field(s)",JOptionPane.ERROR_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(this, errorMsg,"Status",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_payActionPerformed
 
-    private void makeNewPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeNewPaymentActionPerformed
+    private void resetPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetPaymentActionPerformed
         onRepay();
-        t3_id.setText(getTid());
         displayPaymentLogs();
-    }//GEN-LAST:event_makeNewPaymentActionPerformed
+    }//GEN-LAST:event_resetPaymentActionPerformed
 
     private void loanpaymenttblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loanpaymenttblMouseClicked
         // do nothing
     }//GEN-LAST:event_loanpaymenttblMouseClicked
-
+    
     private void t3_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t3_searchActionPerformed
         String errorMsg = "";
         if ("".equals(account_phone.getText())) {
@@ -1926,10 +1852,12 @@ public class Dashboard extends javax.swing.JFrame {
                 ResultSet rs = st.getResultSet();
                 if (rs.next()) {
                     t3_findData.setText(rs.getString("phone"));
+                    //TODO: querry all logs related to search here
                 }
                 else {
-                    JOptionPane.showMessageDialog(null,"Record not found, please use valid search detail");
-                    phone.setText(null);
+                    JOptionPane.showMessageDialog(null,"Not a valid phone or account number!","Status",JOptionPane.ERROR_MESSAGE);
+                    //phone.setText(null);
+                    pay.hide(); //resetPayment.hide();
                     t3_findData.setText(null);
                     return;
                 }
@@ -1947,18 +1875,19 @@ public class Dashboard extends javax.swing.JFrame {
                 while(rs.next()) {
                     int a = Integer.parseInt(rs.getString("status"));
                     if (a == 0){
-                        JOptionPane.showMessageDialog(this, "No active loan found!", "Status", JOptionPane.INFORMATION_MESSAGE);
-                        t3_findData.setText(null);
-                        return;
-                    }
-                    else if (a == 1) {
-                        JOptionPane.showMessageDialog(null,"Active loan is found");
+                        JOptionPane.showMessageDialog(this, "You currently do NOT have any active loan!", "Status", JOptionPane.INFORMATION_MESSAGE);
                         loadLoanPayment(t3_findData.getText());
+                        pay.hide();
+                    }
+                    else if (a == 1) { //Loan Found, enable Payment
+                        loadLoanPayment(t3_findData.getText());
+                        pay.show();
                     }
                     else if (a == 2) {
-                        JOptionPane.showMessageDialog(null,"Your loan payment is complete, you can request for another loan");
-                        t3_findData.setText(null);
-                        return;
+                        JOptionPane.showMessageDialog(null,"Payment completed for this profile! You're eligible for another loan.", "Status", JOptionPane.INFORMATION_MESSAGE);
+                        loadLoanPayment(t3_findData.getText());
+                        pay.hide();
+                        //return;
                     }
                 }
             }
@@ -1967,8 +1896,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         }
         else {
-            JOptionPane.showMessageDialog(this, errorMsg,"Error Message: Required Field(s)",JOptionPane.ERROR_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(this, errorMsg,"Status",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_t3_searchActionPerformed
 
@@ -1982,16 +1910,15 @@ public class Dashboard extends javax.swing.JFrame {
             st.executeQuery(sql);
             ResultSet rs = st.getResultSet();
             if (rs.next()) {
-                t4_id.setText(rs.getString("id"));
+                t4_id.hide();   t4_id.setText(rs.getString("id"));
                 bname.setText(rs.getString("bname"));
+                t4_save.hide();     t4_update.show();
             }
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        dateGenerate();
-        t4_save.setEnabled(false);
-        t4_update.setEnabled(true);
+        //dateGenerate();
     }//GEN-LAST:event_btypetblMouseClicked
 
     private void t4_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t4_saveActionPerformed
@@ -2032,15 +1959,13 @@ public class Dashboard extends javax.swing.JFrame {
             st.executeUpdate(sql);
             JOptionPane.showMessageDialog(this, "Modified successful!", "Status", JOptionPane.INFORMATION_MESSAGE);
             displayBusiness();
-            bname.setText("");
-            t4_id.setText("");
-            t4_update.setEnabled(false);
-            t4_save.setEnabled(true);
+            bname.setText("");  t4_id.setText("");
+            t4_update.hide();   t4_save.show();
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex);
         }
-        dateGenerate();
+        //dateGenerate();
         displayBusiness();
     }//GEN-LAST:event_t4_updateActionPerformed
 
@@ -2053,12 +1978,10 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_tab1_customer_regFocusGained
 
     private void tab1_customer_regComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tab1_customer_regComponentShown
-        //update.setEnabled(false); delete.setEnabled(false); addNew.setEnabled(false);
         displayBeneficiary();
     }//GEN-LAST:event_tab1_customer_regComponentShown
 
     private void tab2_loan_requestComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tab2_loan_requestComponentShown
-        loadBusinessType();
         displayRequestLogs();
     }//GEN-LAST:event_tab2_loan_requestComponentShown
 
@@ -2067,14 +1990,123 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_tab3_loan_paymentComponentShown
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        //Global
         dateGenerate();
-        tab1_customer_reg.setVisible(false);
-        tab2_loan_request.setVisible(false);
-        tab3_loan_payment.setVisible(false);
-        tab4_manage_business.setVisible(false);
-                
+        tab1_customer_reg.setVisible(false);    tab2_loan_request.setVisible(false);
+        tab3_loan_payment.setVisible(false);    tab4_manage_business.setVisible(false);
+        
+        //tab 2 => Loan Request
+        t2_email.hide(); loandate.hide(); findData.hide(); t2_accountno.hide(); loadBusinessType();
+        
+        //tab 3 => Loan Payment
+        t3_findData.hide(); paymentdate.hide(); t3_phone.hide(); dnum.hide();
+        
+        //tab 4 => Busniness
+        update.hide();  t4_update.hide();   request.hide();
+        
+        //tab 5 => Reports
+        beneficiaryListReport(); displayBusiness();  defaultersListReport(); 
+        ComlepetedPaymentListReport();  tab5_report.hide(); hideReports();
     }//GEN-LAST:event_formWindowOpened
 
+    private void tab6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab6MouseClicked
+        tab6.setBackground(Color.white);   // setBGforBTN();
+        int n = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "CONFIRMATION", JOptionPane.YES_NO_OPTION);
+        SignIn login = new SignIn();
+        if (n == JOptionPane.YES_OPTION) {
+            this.hide(); login.show();
+        } else {
+            setBGforBTN(); tab8_home.setVisible(true); tab8.setBackground(Color.white); 
+            tab6.setBackground(new Color(153,153,153));
+        }
+    }//GEN-LAST:event_tab6MouseClicked
+
+    private void tab8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab8MouseClicked
+        setBGforBTN(); tab8_home.setVisible(true); tab8.setBackground(Color.white);
+    }//GEN-LAST:event_tab8MouseClicked
+
+    private void reportTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportTypeActionPerformed
+
+    private void reportTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_reportTypeItemStateChanged
+        int report = reportType.getSelectedIndex();
+        if (report == 1) { //Beneficiaries
+            hideReports(); printReport.show();
+            reportNote.setText("List of Registered Beneficiary");   beneficiaryListReport.setVisible(true);
+        } else if (report == 2) { //Business Type
+            hideReports(); printReport.show();
+            reportNote.setText("List of Registered Business");  businessListReport.setVisible(true);
+        } else if (report == 3) { //Comlpete Loan Payment
+            hideReports(); printReport.show();
+            reportNote.setText("List of Completed Loan Payment");   comlpetedPaymentListReport.setVisible(true);
+        } else if (report == 4) { //Defaulters
+            hideReports(); printReport.show();
+            reportNote.setText("List of Defaulters"); defaultersListReport.setVisible(true);
+        } else {
+            hideReports(); reportNote.setText(""); printReport.hide();
+        }
+    }//GEN-LAST:event_reportTypeItemStateChanged
+
+    private void tblComlepetedPaymentListReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblComlepetedPaymentListReportMouseClicked
+        /** try {
+            connect();
+            int row = loanrequesttbl.getSelectedRow();
+            String table_click = loanrequesttbl.getModel().getValueAt(row, 1).toString();
+            String sql = "SELECT *from loanrequest WHERE phone='" + table_click + "'";
+            st.executeQuery(sql);
+            ResultSet rs = st.getResultSet();
+            if (rs.next()) {
+                phone.setText(rs.getString("phone"));
+                fname.setText(rs.getString("fname"));
+                mname.setText(rs.getString("mname"));
+                lname.setText(rs.getString("lname"));
+                loanduration.setText(rs.getString("payduration"));
+                loandate.setText(rs.getString("loandate"));
+                payfor.setSelectedItem(rs.getString("btype"));
+                payfor.setSelectedItem(rs.getString("payduration"));
+                payamount.setText(rs.getString("amount"));
+                loanamount.setText(rs.getString("amount"));
+            }
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        phone.setEditable(false);
+        mname.setEditable(false);
+        lname.setEditable(false);
+        loanduration.setEditable(false);
+        loandate.setEditable(false);
+        payamount.setEditable(false);
+        dateGenerate();
+
+        pay.setEnabled(false); **/
+    }//GEN-LAST:event_tblComlepetedPaymentListReportMouseClicked
+
+    private void tblDefaultersTypeListReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDefaultersTypeListReportMouseClicked
+
+    }//GEN-LAST:event_tblDefaultersTypeListReportMouseClicked
+
+    private void tblBusinessTypeListReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBusinessTypeListReportMouseClicked
+
+    }//GEN-LAST:event_tblBusinessTypeListReportMouseClicked
+
+    private void tblBeneficiaryListReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBeneficiaryListReportMouseClicked
+
+    }//GEN-LAST:event_tblBeneficiaryListReportMouseClicked
+
+    private void printReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printReportActionPerformed
+        Print();
+    }//GEN-LAST:event_printReportActionPerformed
+
+    public void hideReports() {
+        beneficiaryListReport.hide(); businessListReport.hide();
+        comlpetedPaymentListReport.hide();
+        defaultersListReport.hide();
+        
+        beneficiaryListReport(); displayBusiness();  defaultersListReport(); 
+        ComlepetedPaymentListReport();
+    }
     /**
      * @param args the command line arguments
      */
@@ -2111,6 +2143,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
     
     public void connect() {
+        printReport.hide();
         try {
             conn = DriverManager.getConnection(ConnString, username, password);
             st = conn.createStatement();
@@ -2118,11 +2151,10 @@ public class Dashboard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Network Connection Error Check Your Database Connection!!!");
         }
     }
-    
     public void displayBeneficiary(){
         int row = 0;
         try {
-            String query = "Select fullname,email,phone,bank,accountno from beneficiaryreg";
+            String query = "select fullname, email, phone, bank, accountno from beneficiaryreg ORDER by fullname, bank ASC";
             connect();
             st.executeQuery(query);
             ResultSet rs = st.getResultSet();
@@ -2150,7 +2182,25 @@ public class Dashboard extends javax.swing.JFrame {
            beneficiarytbl.setShowHorizontalLines(false);
            beneficiarytbl.setShowVerticalLines(false);
    }
-    
+    public final void Print(){
+        PrinterJob pjob = PrinterJob.getPrinterJob();
+        PageFormat preformat = pjob.defaultPage();
+        preformat.setOrientation(PageFormat.PORTRAIT);
+        PageFormat postformat = pjob.pageDialog(preformat);
+        //If user does not hit cancel then print.
+        if (preformat != postformat) {
+            //Set print component
+            pjob.setPrintable(new Printer(this), postformat);
+            if (pjob.printDialog()) {
+                try {
+                    pjob.print();
+                } catch (PrinterException ex) {
+                    Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        //this.hide();
+    }
     public boolean beneficiaryExist(){
         boolean ok =false;
         try {
@@ -2170,25 +2220,7 @@ public class Dashboard extends javax.swing.JFrame {
         return ok;  
     }
     
-    public  String getTid(){
-        int no=0;
-        try {
-            String sql = "SELECT max(id)from beneficiaryreg ";
-            connect();
-            st.executeQuery(sql); 
-            ResultSet rs = st.getResultSet();
-            while(rs.next()) {      
-                no = rs.getInt(1)+1;
-            }  
-        } 
-        catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, ex +"Error Generating ID");
-        }
-        return no+"";  
-    }
-    
     // Managed Business Start HERE
-    
     public boolean noActiveDept(){
         boolean ok = false;
         try {
@@ -2207,8 +2239,8 @@ public class Dashboard extends javax.swing.JFrame {
         }
         return ok;  
     }
-    
     public void displayBusiness(){
+        t4_id.hide();
         int row = 0;
         try {
             String query = "Select bname, date from businessreg ORDER BY bname ASC";
@@ -2235,15 +2267,17 @@ public class Dashboard extends javax.swing.JFrame {
            btypetbl.setModel(new javax.swing.table.DefaultTableModel(data2,Column));
            btypetbl.setShowHorizontalLines(false);
            btypetbl.setShowVerticalLines(false);
+           
+           tblBusinessTypeListReport.setModel(new javax.swing.table.DefaultTableModel(data2,Column));
+           tblBusinessTypeListReport.setShowHorizontalLines(false);
+           tblBusinessTypeListReport.setShowVerticalLines(false);
    }
-    
     public void dateGenerate(){
-        Date now =new Date();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("E, d-M-y");
-        paymentdate.setText(dateFormatter.format(now)); 
+        Date now = new Date();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("Y-M-d");
+        loandate.setText(dateFormatter.format(now));
+        paymentdate.setText(dateFormatter.format(now));
     }
-    
-    // Managed Business Start END
     
     //Loan Request
     public void loadLoanRequestLogs(String phone_account){
@@ -2265,12 +2299,6 @@ public class Dashboard extends javax.swing.JFrame {
         }
    }
     public void loadBusinessType(){
-        t2_fname.setEditable(false);
-        t2_lname.setEditable(false);
-        t2_email.setEditable(false);
-        t2_phone.setEditable(false);
-        //t2_accountno.
-               
         try {
             String sql = "SELECT bname FROM businessreg ORDER BY bname ASC";
             connect();
@@ -2311,7 +2339,7 @@ public class Dashboard extends javax.swing.JFrame {
         loanrequesttbl.setShowHorizontalLines(true);
         loanrequesttbl.setShowVerticalLines(false);
    }
-    public void onAddNewRequest(){ 
+    public void onAddNewRequest(){
         t2_fname.setText("");
         t2_lname.setText("");
         t2_email.setText("");
@@ -2321,8 +2349,13 @@ public class Dashboard extends javax.swing.JFrame {
         amount.setText("");
         dateGenerate();
         
-        request.setEnabled(true);
-        t2_addNew.setEnabled(true);
+        btype.setEnabled(true);
+        payduration.setEnabled(true);
+        amount.setEditable(true);
+        loandate.setText("");
+        
+        request.hide();
+        t2_addNew.setEnabled(true); t2_addNew.show();
     }//End onaddNew
     
     //Loan Payment
@@ -2336,7 +2369,7 @@ public class Dashboard extends javax.swing.JFrame {
                t3_fname.setText(rs.getString("fname"));
                t3_lname.setText(rs.getString("lname"));
                loanduration.setText(rs.getString("payduration"));  
-               loandate.setText(rs.getString("loandate"));
+               t3_loandate.setText(rs.getString("loandate"));
                loanamount.setText(rs.getString("amount"));
                t3_phone.setText(rs.getString("phone"));
                
@@ -2408,51 +2441,115 @@ public class Dashboard extends javax.swing.JFrame {
         }
    }
     public void onRepay(){
-        payamount.setText(null);
-        pay.setEnabled(true);
-        makeNewPayment.setEnabled(false);
+        t3_fname.setText("");
+        t3_lname.setText("");
+        loanduration.setText("");
+        loandate.setText("");
+        loanamount.setText("");
+        balamount.setText("");
+        payamount.setText("");
+        
+        paymentdate.setText("");
+        t3_phone.setText("");
+        account_phone.setText("");
+        pay.hide();
         dateGenerate();
     }//End onaddNew
     
-    public void onSave(){ 
-        fname.setEditable(false);
-       // bID.setEditable(false);
-        lname.setEditable(false);
-        gender.setEnabled(false);
-        email.setEditable(false);
-        phone.setEditable(false);
-        bank.setEnabled(false);
-        accountno.setEditable(false);
-        address.setEditable(false);
-        
-        save.setEnabled(false);
-        update.setEnabled(false);
-        addNew.setEnabled(true);
-        delete.setEnabled(false);   
+    // Reports
+    public void beneficiaryListReport(){
+        int row = 0;
+        try {
+            String query = "Select fullname,email,phone,bank,accountno from beneficiaryreg order by fullname ASC";
+            connect();
+            st.executeQuery(query);
+            ResultSet rs = st.getResultSet();
+            while (rs.next()) {
+                for (int i = 0; i < 5;i++) {
+                    int q = i + 1;
+                    data1[row][i] = rs.getString(q);
+                }
+                row++;
+            }
+            rs.close();
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        Object[][]data2 = new Object[row][5];
+        for(int i = 0;i<row;i++) {
+            System.arraycopy(data1[i], 0, data2[i], 0,5);
+        }
+        final Object[] Column = {"Full Name", "Email", "Phone", "Bank Name", "Account Number"};
+        tblBeneficiaryListReport.setModel(new javax.swing.table.DefaultTableModel(data2,Column));
+        tblBeneficiaryListReport.setShowHorizontalLines(false);
+        tblBeneficiaryListReport.setShowVerticalLines(false);
+   }
+    public void defaultersListReport(){
+       int row = 0;
+        try {
+            String query = "Select fullname,phone,payduration,loanamount,balamount,loandate from deptcheck WHERE status = 1";
+            connect();
+            st.executeQuery(query);
+            ResultSet rs = st.getResultSet();
+            while (rs.next()) {
+                for (int i = 0; i < 6;i++) {
+                    int q = i + 1;
+                    data1[row][i] = rs.getString(q);
+                }
+                    row++;
+            }
+                rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        Object[][]data2 = new Object[row][6];
+        for(int i = 0;i<row;i++) {
+            System.arraycopy(data1[i], 0, data2[i], 0,6);
+        }
+        final Object[] Column = {"Full Name", "Phone", "Duration", "Loan Amount(N)" , "Pending Balance", "Loan Date"};
+        tblDefaultersTypeListReport.setModel(new javax.swing.table.DefaultTableModel(data2,Column));
+        tblDefaultersTypeListReport.setShowHorizontalLines(false);
+        tblDefaultersTypeListReport.setShowVerticalLines(false); 
+   }
+    public void ComlepetedPaymentListReport(){
+        int row = 0;
+        try {
+            String query = "Select fullname,phone,payduration,loanamount,balamount,loandate from deptcheck WHERE status = 2";
+            connect();
+            st.executeQuery(query);
+            ResultSet rs = st.getResultSet();
+            while (rs.next()) {
+                for (int i = 0; i < 6;i++) {
+                    int q = i + 1;
+                    data1[row][i] = rs.getString(q);
+                }
+                    row++;
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
+        Object[][]data2 = new Object[row][6];
+        for(int i = 0;i<row;i++) {
+            System.arraycopy(data1[i], 0, data2[i], 0,6);
+        }
+        final Object[] Column = {"Full Name", "Phone", "Duration", "Loan Amount(N)" , "Pending Balance", "Loan Date"};
+        tblComlepetedPaymentListReport.setModel(new javax.swing.table.DefaultTableModel(data2,Column));
+        tblComlepetedPaymentListReport.setShowHorizontalLines(false);
+        tblComlepetedPaymentListReport.setShowVerticalLines(false);
+   }
+    
+    public void onSave(){
+        save.setEnabled(false);     update.hide();
     }//End onSave
     public void onaddNew(){
-        fname.setEditable(true);
-        lname.setEditable(true);
-        gender.setEnabled(true);
-        email.setEditable(true);
-        phone.setEditable(true);
-        bank.setEnabled(true);
-        accountno.setEditable(true);
-        address.setEditable(true);
+        fname.setText(null);        lname.setText(null);
+        gender.setSelectedIndex(0); email.setText(null);
+        phone.setText(null);        bank.setSelectedIndex(0);
+        accountno.setText(null);    address.setText(null);
         
-        fname.setText(null);
-        lname.setText(null);
-        gender.setSelectedIndex(0);
-        email.setText(null);
-        phone.setText(null);
-        bank.setSelectedIndex(0);
-        accountno.setText(null);
-        address.setText(null);
-        
-        save.setEnabled(true);
-        update.setEnabled(false);
-        addNew.setEnabled(true);
-        delete.setEnabled(false);   
+        save.setEnabled(true); save.show();
+        update.setEnabled(false); update.hide();
     }//End onSave
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2461,20 +2558,23 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton addNew;
     private javax.swing.JTextField address;
     private javax.swing.JTextField amount;
-    private javax.swing.JTextField balamount;
+    private javax.swing.JLabel balamount;
     private javax.swing.JComboBox<String> bank;
+    private javax.swing.JScrollPane beneficiaryListReport;
     private javax.swing.JTable beneficiarytbl;
     private javax.swing.JTextField bname;
     private javax.swing.JComboBox<String> btype;
     private javax.swing.JTable btypetbl;
-    private javax.swing.JButton delete;
-    private javax.swing.JTextField dnum;
+    private javax.swing.JScrollPane businessListReport;
+    private javax.swing.JScrollPane comlpetedPaymentListReport;
+    private javax.swing.JScrollPane defaultersListReport;
+    private javax.swing.JLabel dnum;
     private javax.swing.JTextField email;
     private javax.swing.JLabel findData;
     private javax.swing.JTextField fname;
     private javax.swing.JComboBox<String> gender;
     private javax.swing.JLabel iRate;
-    private javax.swing.JTextField id;
+    private javax.swing.JLabel id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2510,6 +2610,11 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2525,36 +2630,40 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTextField lname;
-    private javax.swing.JTextField loanamount;
-    private javax.swing.JTextField loandate;
-    private javax.swing.JTextField loanduration;
+    private javax.swing.JLabel loanamount;
+    private javax.swing.JLabel loandate;
+    private javax.swing.JLabel loanduration;
     private javax.swing.JTable loanpaymenttbl;
     private javax.swing.JTable loanrequesttbl;
-    private javax.swing.JButton makeNewPayment;
     private javax.swing.JPanel navigationBar;
     private javax.swing.JLabel oldPhone;
     private javax.swing.JButton pay;
     private javax.swing.JTextField payamount;
     private javax.swing.JComboBox<String> payduration;
-    private javax.swing.JTextField paymentdate;
+    private javax.swing.JPanel paymentCustomerDetails;
+    private javax.swing.JLabel paymentdate;
     private javax.swing.JTextField phone;
     private javax.swing.JTextField phone_account;
+    private javax.swing.JButton printReport;
+    private javax.swing.JLabel reportNote;
+    private javax.swing.JPanel reportPanel;
+    private javax.swing.JComboBox<String> reportType;
     private javax.swing.JButton request;
+    private javax.swing.JPanel requestCustomerDetails;
+    private javax.swing.JButton resetPayment;
     private javax.swing.JButton save;
     private javax.swing.JLabel t2_accountno;
     private javax.swing.JButton t2_addNew;
-    private javax.swing.JTextField t2_email;
-    private javax.swing.JTextField t2_fname;
-    private javax.swing.JTextField t2_id;
-    private javax.swing.JTextField t2_lname;
-    private javax.swing.JTextField t2_phone;
+    private javax.swing.JLabel t2_email;
+    private javax.swing.JLabel t2_fname;
+    private javax.swing.JLabel t2_lname;
+    private javax.swing.JLabel t2_phone;
     private javax.swing.JButton t2_search;
     private javax.swing.JLabel t3_findData;
-    private javax.swing.JTextField t3_fname;
-    private javax.swing.JTextField t3_id;
-    private javax.swing.JTextField t3_lname;
-    private javax.swing.JTextField t3_loandate;
-    private javax.swing.JTextField t3_phone;
+    private javax.swing.JLabel t3_fname;
+    private javax.swing.JLabel t3_lname;
+    private javax.swing.JLabel t3_loandate;
+    private javax.swing.JLabel t3_phone;
     private javax.swing.JButton t3_search;
     private javax.swing.JLabel t4_id;
     private javax.swing.JButton t4_save;
@@ -2568,6 +2677,15 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel tab4;
     private javax.swing.JPanel tab4_manage_business;
     private javax.swing.JPanel tab5;
+    private javax.swing.JPanel tab5_report;
+    private javax.swing.JPanel tab6;
+    private javax.swing.JPanel tab8;
+    private javax.swing.JPanel tab8_home;
+    private javax.swing.JTable tblBeneficiaryListReport;
+    private javax.swing.JTable tblBusinessTypeListReport;
+    private javax.swing.JTable tblComlepetedPaymentListReport;
+    private javax.swing.JTable tblDefaultersTypeListReport;
+    private javax.swing.JLabel tblNote;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }
